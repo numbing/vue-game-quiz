@@ -59,7 +59,7 @@ export default {
       ];
       this.shuffledAnswers = _.shuffle(answers);
       console.log(
-        "this.shuffledAnswers = _.shuffle(answers)",
+        "this.shuffledAnswers = _.shuffle(answers)asdasd",
         (this.shuffledAnswers = _.shuffle(answers))
       );
     },
