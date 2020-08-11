@@ -62,7 +62,6 @@ export default {
   methods: {
     selectedAnswer(index) {
       this.selectedIndex = index;
-      this.shuffleAnswers();
     },
     submitAnswer() {
       let isCorrect = false;
