@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
 
-    <Header />
+    <Header :numberofCorrect="numberofCorrect" :numberOfTotal="numberOfTotal" />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
@@ -10,6 +10,7 @@
             v-if="loading"
             :currentQuestion="questions[index]"
             :next="next"
+            :increment="increment"
           />
         </b-col>
       </b-row>
@@ -32,12 +33,20 @@ export default {
       questions: [],
       index: 0,
       loading: false,
+      numberofCorrect: 0,
+      numberOfTotal: 0,
     };
   },
 
   methods: {
     next() {
       this.index++;
+    },
+    increment(isCorrect) {
+      if (isCorrect) {
+        this.numberofCorrect++;
+      }
+      this.numberOfTotal++;
     },
   },
   mounted: function() {

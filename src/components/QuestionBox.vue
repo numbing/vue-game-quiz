@@ -22,7 +22,7 @@
         </b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" href="#">submit</b-button>
+      <b-button variant="primary" @click="submitAnswer">submit</b-button>
       <b-button @click="next" variant="success" href="#">next</b-button>
     </b-jumbotron>
   </div>
@@ -34,17 +34,22 @@ export default {
   props: {
     currentQuestion: Object,
     next: Function,
+    increment: Function,
   },
   data() {
     return {
       selectedIndex: null,
       shuffledAnswers: [],
+      correctIndex: null,
     };
   },
   watch: {
-    currentQuestion() {
-      this.selectedIndex = null;
-      this.shuffleAnswers();
+    currentQuestion: {
+      immediate: true,
+      handler() {
+        this.selectedIndex = null;
+        this.shuffleAnswers();
+      },
     },
   },
   methods: {
@@ -52,15 +57,22 @@ export default {
       this.selectedIndex = index;
       this.shuffleAnswers();
     },
+    submitAnswer() {
+      let isCorrect = false;
+      if (this.selectedIndex == this.correctIndex) {
+        isCorrect = true;
+      }
+      this.increment(isCorrect);
+    },
     shuffleAnswers() {
-      let answers = [
+      let answers = [ 
         ...this.currentQuestion.incorrect_answers,
         this.currentQuestion.correct_answer,
       ];
+
       this.shuffledAnswers = _.shuffle(answers);
-      console.log(
-        "this.shuffledAnswers = _.shuffle(answers)asdasd",
-        (this.shuffledAnswers = _.shuffle(answers))
+      this.correctIndex = this.shuffledAnswers.indexOf(
+        this.currentQuestion.correct_answer
       );
     },
   },
