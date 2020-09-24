@@ -32,6 +32,7 @@ export default {
     return {
       questions: [],
       index: 0,
+      
       loading: false,
       numberofCorrect: 0,
       numberOfTotal: 0,
